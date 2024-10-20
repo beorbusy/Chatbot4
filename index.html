@@ -1,0 +1,186 @@
+<html lang="en" class=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5; /* Light background */
+            margin: 0;
+            padding: 20px;
+        }
+        .maincontainer {
+            max-width: 400px; /* Increase width for better chat view */
+            margin: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* White background for chat */
+        }
+        .title {
+            background-color: #0095f6; /* Instagram blue */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .chatbox {
+            padding: 10px;
+            height: 400px; /* Increased height for chat */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 75%;
+            color: white;
+            display: inline-block;
+            position: relative;
+            word-wrap: break-word;
+        }
+        .message.user {
+            background-color: #0095f6; /* User message color */
+            align-self: flex-end; /* Align to the right */
+        }
+        .message.bot {
+            background-color: #e3e3e3; /* Bot message color */
+            color: black;
+            align-self: flex-start; /* Align to the left */
+        }
+        button {
+            padding: 10px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #007bb5; /* Darker blue on hover */
+        }
+        #better-answer-form {
+            display: none;
+            margin-top: 10px;
+        }
+        .thank-you {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function showBetterAnswerForm() {
+            document.getElementById("better-answer-form").style.display = "block";
+        }
+        function hideBetterAnswerForm() {
+            document.getElementById("better-answer-form").style.display = "none";
+            document.getElementById("thank-you-message").style.display = "block";
+        }
+
+        function scrollToBottom() {
+            var chatbox = document.querySelector('.chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+        }
+
+        // Call scrollToBottom when the page loads
+        window.onload = scrollToBottom;
+
+        // Optionally, you could call scrollToBottom after adding new messages dynamically.
+    </script>
+</head>
+<body>
+
+<div class="maincontainer">
+    <div class="title">
+        <h1>Chatbot</h1>
+    </div>
+
+    <div class="response">
+        <div class="chatbox">
+            {% for item in conversation %}
+                <div class="message user">Your Question: {{ item.question }}</div>
+                <div class="message bot">Answer: {{ item.answer }}</div>
+            {% endfor %}
+    <form method="post" action="/feedback" style="
+    margin: 0px 0px 0px 227px;
+    display: flex;
+">
+            <input type="hidden" name="query" value="{{ user_query }}">
+            <input type="hidden" name="answer" value="{{ main_answer }}">
+            <input type="hidden" name="yatra" value="{{ current_yatra_name }}">
+            <button name="feedback" value="dislike" style="
+    background-color: #e9e9e9;
+">👎</button>
+<button name="feedback" value="like" style="
+    margin: 0px 0px 0px 20px;
+    background-color: #e9e9e9;
+">👍</button>
+            
+        </form>
+        </div>
+
+
+
+
+
+
+        <div class="buttons" style="
+    margin: 15px;
+">
+        <button onclick="showBetterAnswerForm()">Better Answer</button>
+        <div id="better-answer-form">
+            <form method="post" action="/better-answer" onsubmit="hideBetterAnswerForm(); scrollToBottom();">
+                <input type="hidden" name="query" value="{{ user_query }}">
+                <input type="text" name="better_answer" placeholder="Enter your better answer..." required="" style="
+    width: 304px;
+    height: 36px;
+    border: 1px solid #a5a5a5;
+    border-radius: 8px;
+    padding: 10px;
+">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="thank-you-message" style="display:none;" class="thank-you">
+            Thank you for your input!
+        </div>
+
+        
+    </div>
+
+
+    <form method="post" action="/ask" onsubmit="scrollToBottom();">
+        <div class="inputarea" style="
+    border: 1px solid #bdbdbd;
+    border-radius: 10px;
+    margin: 10px;
+"><input type="text" name="query" placeholder="Type your question..." required="" style="
+    width: 312px;
+    height: 30px;
+    margin: 7px;
+    border: 0px;
+"> <button type="submit">Ask</button></div>
+        
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+</body></html>
