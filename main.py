@@ -1,10 +1,14 @@
-from flask import Flask
+# Simple Addition Calculator
 
-app = Flask(__name__)
+def add_numbers(num1, num2):
+    return num1 + num2
 
-@app.route('/')
-def hello():
-    return "Hello, World!"
+# Input from the user
+number1 = float(input("Enter the first number: "))
+number2 = float(input("Enter the second number: "))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Perform addition
+result = add_numbers(number1, number2)
+
+# Display the result
+print(f"The sum of {number1} and {number2} is {result}")
