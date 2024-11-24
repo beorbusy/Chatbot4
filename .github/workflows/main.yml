@@ -27,4 +27,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run the app
-      run: python app.py  # Replace 'app.py' with your script's entry point
+      run: python main.py  # Replace 'app.py' with your script's entry point
